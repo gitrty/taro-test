@@ -35,10 +35,11 @@ class Index extends Component {
     // console.log(this.props, nextProps)
   }
 
-  // 组件挂载前
-  componentWillMount() {
-    console.info(this.props.counter.userid = 30)
+  // 组件挂载前 - 对应uni中的onload - 对应原生小程序onLaunch - 可在此处获取路由参数
+  componentWillMount(path) {
+    this.props.counter.userid = 99
     // console.info(this.props.counter.userid)
+    console.info(this.$router.params)
   }
 
   // 组件挂载后
@@ -59,8 +60,24 @@ class Index extends Component {
 
   }
 
+  // 页面卸载时触发 - 如 redirectTo 或 navigateBack 到其他页面时
   componentWillUnmount() {
 
+  }
+
+  // 下拉刷新时触发
+  onPullDownRefresh() {
+    console.info('刷新页面')
+  }
+
+  // 上拉触底 - 需要页面足够高，有滚动条
+  onReachBottom() {
+    console.info('上拉触底')
+  }
+
+  // 点击当前tabBar时触发，不能作用于全局app.jsx中
+  onTabItemTap(obj){
+    // console.info(obj)
   }
 
   render() {

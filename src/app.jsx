@@ -26,12 +26,14 @@ class App extends Component {
       'pages/index/index',
       'pages/about/about'
     ],
-
+    
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      enablePullDownRefresh: true,   // 允许下拉刷新
+      onReachBottom: true   // 允许上拉触底
     },
 
     // 底部tabBar全局配置
@@ -62,6 +64,7 @@ class App extends Component {
   componentDidHide() { }
 
   componentDidCatchError() { }
+  
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
