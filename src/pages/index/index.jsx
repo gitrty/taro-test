@@ -4,6 +4,10 @@ import { connect } from '@tarojs/redux'
 
 import { add, minus, asyncAdd } from '../../actions/counter'
 
+import Jar from './components/Jar'
+import Setstate from './components/Setstate'
+import Click from './components/click'
+
 import './index.less'
 
 
@@ -24,7 +28,9 @@ class Index extends Component {
 
   state = {
     a: 'aaa',
-    b: 'bbb'
+    b: 'bbb',
+    id: 666,
+    name: 'toyo'
   }
 
   config = {
@@ -36,10 +42,10 @@ class Index extends Component {
   }
 
   // 组件挂载前 - 对应uni中的onload - 对应原生小程序onLaunch - 可在此处获取路由参数
-  componentWillMount(path) {
+  componentWillMount() {
     this.props.counter.userid = 99
     // console.info(this.props.counter.userid)
-    console.info(this.$router.params)
+    // console.info(this.$router.params)
   }
 
   // 组件挂载后
@@ -76,11 +82,23 @@ class Index extends Component {
   }
 
   // 点击当前tabBar时触发，不能作用于全局app.jsx中
-  onTabItemTap(obj){
+  onTabItemTap(obj) {
     // console.info(obj)
   }
 
+  // navigateTo跳转 - 路由传参
+  jump() {
+    Taro.navigateTo({ url: `/pages/details/details?id=${this.state.id}&name=${this.state.name}` })
+  }
+
+  jump2() {
+    Taro.redirectTo({ url: '/pages/details/details' })
+  }
+
   render() {
+
+    const showJar = true;
+
     return (
       <View className='index'>
         <Button className='add_btn' onClick={this.props.add}>+</Button>
@@ -91,6 +109,17 @@ class Index extends Component {
         <View><Text>{this.a} </Text></View>
         {/* {console.info(this.props)} */}
         <View><Text>redux-userid:{this.props.counter.userid} </Text></View>
+        {/* Taro.pxTransform(40) - 在js中px不会转化为rpx，需要使用该方法进行转换 (也可以直接写成rpx) */}
+        <View onClick={this.jump} style={{ fontSize: Taro.pxTransform(40) }}>navigateTo跳转</View>
+        <View onClick={this.jump} style={{ fontSize: '20px' }}>navigateTo跳转</View>
+        <View onClick={this.jump2}>redirectTo跳转</View>
+        <View>------------------------</View>
+
+        {showJar && <Jar name={'toyo'} timer={10} />}
+
+        <Setstate />
+
+        <Click />
       </View>
     )
   }

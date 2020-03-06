@@ -7,10 +7,14 @@ import "./about.less"
 
 class About extends Component {
     state = {
-        msg: "message2"
+        msg: "message2222"
     }
     config = {
         navigationBarTitleText: 'about页'
+    }
+
+    componentWillMount() {
+        // console.info('about:' + this.$componentType)
     }
 
     renderHeader() {
@@ -22,7 +26,8 @@ class About extends Component {
             <View className="about">
                 <View className="title"><Text>about页面</Text></View>
                 <Button> {this.msg} </Button>
-                <Zujian />
+                {/* 传值给子组件，子组件通过 this.props.message 接收，如果不进行传参，则默认传 true */}
+                <Zujian message={this.state.msg} flag />
                 <View>{this.renderHeader()}</View>
             </View>
         )
